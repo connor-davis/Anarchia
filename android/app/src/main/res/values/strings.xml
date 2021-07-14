@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Anarchia</string>
+    <string name="title_activity_main">Anarchia</string>
+    <string name="package_name">tech.connordavis.anarchia</string>
+    <string name="custom_url_scheme">tech.connordavis.anarchia</string>
+</resources>

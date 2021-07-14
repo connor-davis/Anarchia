@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "Anarchia",
-	"webDir": "build",
-	"bundledWebRuntime": false
+  "appId": "tech.connordavis.anarchia",
+  "appName": "Anarchia",
+  "webDir": "build",
+  "bundledWebRuntime": false
 }

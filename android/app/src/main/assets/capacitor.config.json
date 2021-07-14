@@ -1,0 +1,6 @@
+{
+	"appId": "tech.connordavis.anarchia",
+	"appName": "Anarchia",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

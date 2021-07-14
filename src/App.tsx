@@ -1,40 +1,45 @@
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
+import "./theme/tailwind.css";
 
-/* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
+/* TailwindCSS */
+import {
+  ThemeDetection,
+  ThemeDetectionResponse,
+} from "@ionic-native/theme-detection";
+import { persistor, store } from "./state/store";
+import { useEffect, useState } from "react";
 
-/* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
+import Home from "./pages/Home";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
 
-/* Optional CSS utils that can be commented out */
-import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
-import '@ionic/react/css/text-alignment.css';
-import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
+const App: React.FC = () => {
+  let [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false);
+  let [res, setRes] = useState<ThemeDetectionResponse>();
 
-/* Theme variables */
-import './theme/variables.css';
+  useEffect(() => {
+    ThemeDetection.isAvailable()
+      .then((response: ThemeDetectionResponse) => {
+        if (response.value) {
+          ThemeDetection.isDarkModeEnabled()
+            .then((response: ThemeDetectionResponse) => {
+              setRes(response);
+              setIsDarkModeEnabled(response.value);
+            })
+            .catch(() => {});
+        }
+      })
+      .catch(() => {});
+  }, []);
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <div className={`${isDarkModeEnabled && "dark"}`}>
           <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+        </div>
+      </PersistGate>
+    </Provider>
+  );
+};
 
 export default App;
