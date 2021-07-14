@@ -1,0 +1,7 @@
+{
+  "name": "Anarchia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
